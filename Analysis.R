@@ -398,3 +398,6 @@ spplot(plot.rast, fill=NA, colorkey=FALSE, xlim=c(-86.21033 -0.4, -84.00013 +0.4
        sp.layout=list(bound, riv, co, pos.fore, pos.pred, tenmile), scales = list(draw = T, cex=2),
        key=list(title = "", cex.title = 2, x = .95, y = .995, corner=c(1.1,1), lines=list(col=c("black"), lty=c(1), lwd=4), text=list(c("16.09 km"), cex=2)))
        grid.text(label="B", x=0.28, y=0.88, gp=gpar(fontsize=30, col="black", fontface="bold")) 
+
+##Reference##
+##Hefley, T. J., Hooten, M. B., Russell, R. E., Walsh, D. P., and Powell, J. A. (2017). When mechanism matters: Bayesian forecasting using models of ecological diffusion. Ecology Letters, 20:640–650.##
