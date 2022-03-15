@@ -299,11 +299,11 @@ scale = list("SpatialPolygonsRescale", layout.scale.bar(), offset = c(-89.5,42.2
 text1 = list("sp.text", c(-89.5,42.15), "0")
 text2 = list("sp.text", c(-88.29,42.15), "100 km")
 
-#figure 2A
+#figure 1A
 par(font.axis = 2, font=2, cex=1.5, cex.axis=1.5)
 spplot(midiss.proj, fill=NA, colorkey=FALSE, xlim=c(-90.41829 -0.4, -82.41348 +0.4), ylim=c(41.69613 -0.4, 48.26269 +0.4), sp.layout=list(co,pos.fore,bound,pos.pred, North, scale, text1, text2), scales = list(draw = T, cex=2), key=list(title = "CWD Detections", cex.title = 2, x = .8, y = .95, corner=c(1.1,1),points=list(col=c("black", "red4"), pch=c(19,3), cex=2, lwd=c(2,4)), text=list(c("2015-2017", "2018-2019"), cex=2)))
 
-#figure 2B
+#figure 1B
 result.cv.proj.17 <- projectRaster(E.y.rast.17, crs="+proj=longlat +datum=NAD83 +no_defs +ellps=GRS80 +towgs84=0,0,0")
 breaks=seq(0,max(E.y.19), by=0.0001)
 
@@ -318,7 +318,7 @@ spplot(result.cv.proj.17, colorkey=F,
        scales = list(draw = T, cex=2), col.regions = color.grad,
        plot.margin=unit(c(1,15,1.5,1.2),"cm"))
        
-#Figure 2C
+#Figure 1C
 result.cv.proj.18 <- projectRaster(E.y.rast.18, crs="+proj=longlat +datum=NAD83 +no_defs +ellps=GRS80 +towgs84=0,0,0")
 
 #plot
@@ -328,7 +328,7 @@ spplot(result.cv.proj.18, colorkey=F,
        scales = list(draw = T, cex=2), col.regions = color.grad,
        plot.margin=unit(c(1,15,1.5,1.2),"cm"))
 
-#figure 2D
+#figure 1D
 result.cv.proj.19 <- projectRaster(E.y.rast.19, crs="+proj=longlat +datum=NAD83 +no_defs +ellps=GRS80 +towgs84=0,0,0")
 
 spplot(result.cv.proj.19, colorkey=F,  
@@ -337,7 +337,7 @@ spplot(result.cv.proj.19, colorkey=F,
        scales = list(draw = T, cex=2), col.regions = color.grad,
        plot.margin=unit(c(1,15,1.5,1.2),"cm"))
 
-###Figure 3
+###Figure 2
 quant <- quantile(E.y.17, probs=c(0.5, 0.75, 0.95))
 
 #50% percentile
@@ -384,12 +384,12 @@ mean.ci.4 <- list("sp.polygons", m.4, col='black', lwd=3, lty=3, first=FALSE)
 plot.rast <- raster(, nrows = nsite^0.5, ncols = nsite^0.5, xmn = s[1], xmx = s[2], ymn = s[3], ymx = s[4], crs="+proj=longlat +datum=NAD83 +no_defs +ellps=GRS80 +towgs84=0,0,0")
 plot.rast[] <- 0
 
-#Figure 3A
+#Figure 2A
 spplot(plot.rast, fill=NA, colorkey=FALSE, xlim=c(-86.21033 -0.4, -84.00013 +0.4), ylim=c(42.45952 -0.4, 44.07051 +0.4), 
        sp.layout=list(boundg, riv, co, pos.fore, pos.pred, mean.ci.2, mean.ci.3, mean.ci.4 ), scales = list(draw = T, cex=2), key=list(title = "", cex.title = 2, x = .99, y = 1.055, corner=c(1.1,1), lines=list(col=c("black", "black", "black", "black", "red4"), pch=c(NA, NA, NA, 19, 3), type=c("l","l", "l","p", "p"), lty=c(1,2,3,1,1), lwd=c(4,4,4,4,4)), text=list(c("50th","75th", "95th","CWD+ 2015-17", "CWD+ 2018-19"), cex=c(2,2,2,2,2))))
        grid.text(label="A", x=0.28, y=0.88, gp=gpar(fontsize=30, col="black", fontface="bold")) 
        
-#figure 3B
+#figure 2B
 spplot(plot.rast, fill=NA, colorkey=FALSE, xlim=c(-86.21033 -0.4, -84.00013 +0.4), ylim=c(42.45952 -0.4, 44.07051 +0.4), 
        sp.layout=list(bound, riv, co, pos.fore, pos.pred, tenmile), scales = list(draw = T, cex=2),
        key=list(title = "", cex.title = 2, x = .95, y = .995, corner=c(1.1,1), lines=list(col=c("black"), lty=c(1), lwd=4), text=list(c("16.09 km"), cex=2)))
