@@ -1,7 +1,3 @@
-rm(list=ls())
-#set wd
-setwd("C:/Users/cookjo15/Desktop/EcoStats")
-
 ######load libraries########
 library(raster)
 library(fields)
@@ -77,7 +73,7 @@ river <- raster("river.tif")
 cell <- raster("cell.tif")
 
 #load in positives
-all.dat <- read.csv("0219_AllDeerExamined.csv")
+all.dat <- read.csv("AllDeerExamined.csv")
 all.dat.sub.18 <- all.dat[(all.dat$Year==2018 &  all.dat$Y_COORD > 214002.6 & all.dat$Y_COORD < 391030 & all.dat$X_COORD > 483000 & all.dat$X_COORD < 660027.4),]
 all.dat.sub.19 <- all.dat[(all.dat$Year==2019 & all.dat$Y_COORD > 214002.6 & all.dat$Y_COORD < 391030 & all.dat$X_COORD > 483000 & all.dat$X_COORD < 660027.4),]
 
