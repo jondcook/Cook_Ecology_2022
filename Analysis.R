@@ -127,7 +127,7 @@ spatial.covariates$intercept <- 1
 spatial.covariates <- subset(spatial.covariates, c(1, 5, 2, 3, 4))
 
 #number of Monte Carlo samples to draw
-num.samples <- 10
+num.samples <- 1e6
 #progress bar
 pb <- txtProgressBar(min=1,max=num.samples,style=3)
 
@@ -205,6 +205,7 @@ for(i in 1:num.samples){
   setTxtProgressBar(pb,value=i)
 }
 close(pb)
+
 #Expected values (Derived quantities) for 2017, 2018, 2019
 E.y.17 <- rowMeans(Y.pred)
 E.y.18 <- rowMeans(Y.1)
@@ -217,7 +218,6 @@ coord.ll <- "+proj=omerc +lat_0=45.30916666666666 +lonc=-86 +alpha=337.25556 +k=
 #2017 Raster 
 E.y.rast.17<- raster(, nrows = nsite^0.5, ncols = nsite^0.5, xmn = s[1], xmx = s[2], ymn = s[3], ymx = s[4], crs = coord.ll)
 E.y.rast.17[] <- E.y.17
-
 
 #2018 Raster 
 E.y.rast.18<- raster(, nrows = nsite^0.5, ncols = nsite^0.5, xmn = s[1], xmx = s[2], ymn = s[3], ymx = s[4], crs = coord.ll)
@@ -238,7 +238,6 @@ detection.sim.19 <- extract(E.y.rast.19, all.dat.sub.19[,c(10,11)])
 bern.out.19 <- sum(-2*dbinom(all.dat.sub.19[,8], 1, detection.sim.19, log=TRUE))
 #overall 
 bern.tot.real <- bern.out.18 + bern.out.19
-
 
 #Rule-Based Approach
 #Create buffer surrounding known positives
@@ -268,8 +267,7 @@ bern.out.rule.19 <- sum(-2*dbinom(all.dat.sub.19[,8], 1, detection.rule.19, log=
 bern.out.rule <- bern.out.rule.18 + bern.out.rule.19
 
 
-
-###################Maps#############################
+###################Figures#############################
 
 ##Import and project layers
 coords <- "+proj=longlat +datum=NAD83 +no_defs +ellps=GRS80 +towgs84=0,0,0"
@@ -282,9 +280,9 @@ counties.proj <- spTransform(counties, CRS=coords)
 river<- shapefile("LargeRivers.shp")
 river.proj <- spTransform(river, CRS=coords)
 circle.proj <- spTransform(circle, crs("+proj=longlat +datum=NAD83 +no_defs +ellps=GRS80 +towgs84=0,0,0"))
+
 ####################################
-#State Map Figure
-#prepare spatial objects for plot
+#prepare spatial objects for plots
 mi <- list("sp.polygons", midiss.proj , col='black', lwd=3)
 co <- list("sp.polygons", counties.proj, col='gray', lwd=1)
 pos.pred <- list("sp.points", pos.clust.pred, col='black', pch=19, lwd=2)
@@ -332,14 +330,12 @@ spplot(result.cv.proj.18, colorkey=F,
 
 #figure 2D
 result.cv.proj.19 <- projectRaster(E.y.rast.19, crs="+proj=longlat +datum=NAD83 +no_defs +ellps=GRS80 +towgs84=0,0,0")
-  
 
 spplot(result.cv.proj.19, colorkey=F,  
        ylim=c(42.45952 -0.4, 44.07051 +0.4), xlim=c(-86.21033 -0.4, -84.00013 +0.4), 
        sp.layout=list(bound, riv, co), at = breaks,
        scales = list(draw = T, cex=2), col.regions = color.grad,
        plot.margin=unit(c(1,15,1.5,1.2),"cm"))
-
 
 ###Figure 3
 quant <- quantile(E.y.17, probs=c(0.5, 0.75, 0.95))
