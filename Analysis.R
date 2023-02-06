@@ -176,7 +176,7 @@ for(i in 1:num.samples){
   #vector location of random introduction
   point <- extract(crand, d)
   #small but nonzero disease intensity number across grid
-  theta.all <- rep(1.0e-6, length(crand))
+  theta.all <- rep(0, length(crand))
   #initial intensity
   p.star <- ilink(runif(1,1/45,1/15))
   theta.point <- p.star/(exp((1*beta[1]) + (4 * beta[2])))
